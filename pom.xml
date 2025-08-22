@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pl.tkowalcz</groupId>
+    <artifactId>central-publishing-bug-reproducer</artifactId>
+    <version>1.1.0</version>
+    <packaging>pom</packaging>
+
+    <name>Central Publishing Maven Plugin Bug reproducer</name>
+    <description>Minimal reproducer for central-publishing-maven-plugin bug</description>
+    <url>https://tkowalcz.pl</url>
+
+    <scm>
+        <connection>
+            scm:git:https://github.com/tkowalcz/central-publishing-maven-plugin-bug.git
+        </connection>
+        <developerConnection>
+            scm:git:https://github.com/tkowalcz/central-publishing-maven-plugin-bug.git
+        </developerConnection>
+        <url>https://github.com/tkowalcz/central-publishing-maven-plugin-bug</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>tkowalcz</id>
+            <name>Tomasz Kowalczewski</name>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.deploy.skip>false</maven.deploy.skip>
+    </properties>
+
+    <modules>
+        <module>deployed</module>
+        <module>not-deployed</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>Apache License</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A permissive license whose main conditions require preservation of
+                copyright and license notices.
+            </comments>
+        </license>
+    </licenses>
+
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <checksums>required</checksums>
+                    <publishingServerId>central</publishingServerId>
+                    <skipPublishing>${maven.deploy.skip}</skipPublishing>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
