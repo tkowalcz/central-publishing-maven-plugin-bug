@@ -1,7 +1,7 @@
 # central-publishing-maven-plugin-bug
 
 The minimal reproducer for `central-publishing-maven-plugin` bug. It's
-not really a bug but a result of the plugin's logic. 
+not really a bug but a result of the plugin's logic. The logic is, however, flawed.
 
 When using the plugin in a multi-module project, the `central-publishing-maven-plugin`
 will fail to publish the artifacts if the last submodule sets `skipPublishing` to `true`.
@@ -20,8 +20,8 @@ The setup is as follows:
    ```
    
 2. This variable is resolved for each submodule independently.
-3. First submodule (called `deployed`) sets the variable to false and should be deployed.
-4. Second submodule (called `not-deployed`) sets the variable to true and should be deployed.
+3. First submodule (called `deployed`) sets the variable to false and SHOULD be deployed.
+4. Second submodule (called `not-deployed`) sets the variable to true and SHOULD NOT be deployed.
 5. The second submodule depends on the first one to make sure it is built last.
 
 This should be a common case, e.g., the first submodule is a public api, and the second submodule is an api implementation distributed as a docker image.
